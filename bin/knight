@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+namespace Knight;
+
+if (PHP_SAPI !== 'cli') {
+    echo 'knight must be run as a CLI application';
+    exit(1);
+}
+
+try {
+    require_once __DIR__ . '/../Autoloader.php';
+} catch (\Exception $e) {
+    echo 'Autoload error: ' . $e->getMessage();
+    exit(1);
+}
+
+try {
+    $options = getopt('w');
+    $watch = isset($options['w']);
+
+    Config::loadConfig();
+    App::run($watch);
+} 
+catch (\Exception $e) {
+    while ($e) {
+        echo $e->getMessage();
+        echo $e->getTraceAsString();
+        echo PHP_EOL.PHP_EOL;
+        $e = $e->getPrevious();
+    }
+
+    exit(1);
+}
