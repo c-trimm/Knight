@@ -9,7 +9,7 @@ class App {
         if ($watch) self::watch();
     }
 
-    protected static function watch() 
+    protected static function watch()
     {
         $dirs = [
             App::getDir().Config::getLayoutsDir() => null,
@@ -31,6 +31,8 @@ class App {
                 $dirs[$dir] = App::md5_dir($dir);
                 if ($dirs[$dir] !== $hash) Generator::generate();
             }
+
+            sleep(1);
         }
     }
 
@@ -137,7 +139,7 @@ class App {
         return implode('_', $ret);
     }
 
-    public static function getDir() 
+    public static function getDir()
     {
         return getcwd() . DIRECTORY_SEPARATOR;
     }

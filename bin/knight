@@ -21,7 +21,7 @@ try {
 
     Config::loadConfig();
     App::run($watch);
-} 
+}
 catch (\Exception $e) {
     while ($e) {
         echo $e->getMessage();

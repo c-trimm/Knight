@@ -63,7 +63,7 @@ class Generator
 
     }
 
-    protected static function generateBlogEntries() 
+    protected static function generateBlogEntries()
     {
         if (!Config::getBlogEnabled()) return;
 
@@ -84,7 +84,9 @@ class Generator
 
         App::out('Sorting Blog Entries...');
         usort(self::$entries, function ($a, $b) {
-            return ($b->get('date') - $a->get('date'));
+            if ($b->get('date') > $a->get('date')) return 1;
+            else if ($b->get('date') == $a->get('date')) return 0;
+            else return -1;
         });
     }
 
